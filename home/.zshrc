@@ -110,7 +110,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git command-not-found history docker common-aliases composer emoji laravel laravel5 marked2 npm osx node terminalapp vi-mode vim-interaction xcode zsh-navigation-tools)
+plugins=(git command-not-found history docker common-aliases composer emoji laravel laravel5 marked2 npm osx node vi-mode vim-interaction xcode zsh-navigation-tools)
 
 # Check if using Darwin
 if [[ $(uname) = 'Darwin'  ]]; then
