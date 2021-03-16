@@ -1,0 +1,21 @@
+bundle exec fastlane
+bundle exec fastlane
+bundle exec fastlane
+bundle exec fastlane
+vim app_config.sh
+bundle exec fastlane ios setup_project --env nof1v200qa
+bundle exec fastlane ios setup_project --env nof1v200b2cdev
+bundle install --path vendor/bundle
+./set_env.sh -e nof1v200def
+bundle exec fastlane deploy_beta --env demoomega
+freeze_graph --input_checkpoint=model --output_node_names=conv8 --input_graph=saved_model.pb --output_graph==frozen_model.pb
+freeze_graph --input_checkpoint=checkpoint --output_node_names=conv8 --input_graph=saved_model.pb --output_graph==frozen_model.pb
+vim ~/.zshrc
+vim ~/.zshrc
+python trainset1_train.py
+python example/mpii.py -a hg --stacks 2 --blocks 1 --checkpoint checkpoint/mpii/hg_s2_b1 --resume checkpoint/mpii/hg_s2_b1/model_best.pth.tar -e -d
+python example/mpii.py -a hg --stacks 8 --blocks 1 --checkpoint checkpoint/mpii/hg8 -j 4
+python mpii.py -a hg --stacks 2 --blocks 1 --checkpoint checkpoint/mpii/hg_s2_b1 --resume checkpoint/mpii/hg_s2_b1/model_best.pth.tar -e -d
+python trainset1_convert.py
+python detect.py --images imgs --det det --cfg cfg/yolov3-tiny.cfg --weights yolov3-tiny.weights
+python mpii-cpu.py -a hg --stacks 2 --blocks 1 --checkpoint checkpoint/mpii/hg_s2_b1 --resume checkpoint/mpii/hg_s2_b1/model_best.pth.tar -o

@@ -1,0 +1,6 @@
+
+ginfuru.ginfuru-better-solarized-dark-theme
+
+braver.vscode-solarized
+
+trongthanh.theme-boxythemekit
