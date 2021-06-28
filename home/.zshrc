@@ -176,6 +176,8 @@ alias vim='nocorrect vim'
 
 alias conda-which="conda-env list"
 
+alias bef="bundle exec fastlane"
+
 # -------------------------------------------------------------------
 # Functions
 # -------------------------------------------------------------------
@@ -245,3 +247,9 @@ export QRCODE_PASSWORD=upside
 
 # Prevents Fastlane from printing out THOUSANDS of lines of updates...
 export FASTLANE_SKIP_UPDATE_CHECK=1
+
+# Load rbenv automatically by appending
+# the following to ~/.zshrc:
+
+eval "$(rbenv init -)"
+export PATH="/usr/local/opt/ruby@2.7/bin:$PATH"
