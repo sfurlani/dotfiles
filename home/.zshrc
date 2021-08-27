@@ -253,3 +253,4 @@ export FASTLANE_SKIP_UPDATE_CHECK=1
 
 eval "$(rbenv init -)"
 export PATH="/usr/local/opt/ruby@2.7/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"

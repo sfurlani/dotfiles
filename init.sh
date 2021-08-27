@@ -55,6 +55,10 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	if !(brew ls --versions mosh > /dev/null); then
 		brew install mosh
 	fi
+	if !(brew ls --versions ruby > /dev/null); then
+		brew install ruby
+		brew install rbenv
+	fi
 fi
 
 # vim-plug
