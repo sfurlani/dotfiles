@@ -90,6 +90,7 @@ plugins=(git command-not-found history docker common-aliases emoji osx xcode vi-
 # node and npm plugins are looong
 # add k
 # git clone https://github.com/supercrabtree/k $ZSH_CUSTOM/plugins/k
+# brew install coreutils
 plugins+=(k)
 
 
@@ -134,9 +135,9 @@ alias git='nocorrect git'
 alias c='clear'
 alias cd..="cd .."
 alias l="ls -Fo"
-alias la="ls -AFo"
+alias la="ls -AFho"
 alias lp="ls -p"
-alias vim='nocorrect vim'
+alias kk="k -Ah"
 
 alias conda-which="conda-env list"
 
