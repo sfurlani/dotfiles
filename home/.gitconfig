@@ -1,19 +1,39 @@
-[user]
-	email = stephen.furlani@gmail.com
-    name = Stephen Furlani
-    signingkey = DAC475EB443038D1
+# Put the user in sub-directories
 [core]
-	excludesfile = /Users/stephenf/.gitignore_global
-[difftool "sourcetree"]
-	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
-	trustExitCode = true
+|   excludesfile = ~/.gitignore_global
+|   editor = nvim
+|   hooksPath = ~/.config/git/hooks
+[status]
+|   submodulesummary = 1
+[diff]
+|   submodule = log
+|   tool = p4merge
+[alias]
+    summary = "!git log --numstat --format=\"\" \"$@\" | awk '{files += 1}{ins += $1}{del += $2} END{print \"total: \"files\" files, \"ins\" insertions(+) \"del\" deletion    ↪ s(-)\"}' #"
+    status-submodule = "!git submodule foreach --quiet 'echo $name \"|\" `git rev-parse --abbrev-ref HEAD 2>/dev/null` \"|\" `git diff --shortstat` ' | column -s \"|\" -t"
+[submodule]
+|   recurse = true
 [commit]
-	template = /Users/stephenf/.stCommitMsg
-    gpgsign = true
+|   template = ~/.config/git/templates/basic
+[merge]
+|   tool = p4merge
+[mergetool "p4merge"]
+    path = /Applications/p4merge.app/Contents/Resources/launchp4merge
 [mergetool]
     keepBackup = false
-[gpg]
-    program = /usr/local/bin/gpg
+    writeToTemp = true
+[difftool "sourcetree"]
+|   cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$LOCAL\" \"$REMOTE\"
+|   path =•
+[mergetool "sourcetree"]
+|   cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+|   trustExitCode = true
+[init]
+|   defaultBranch = main
+# Include user on a per-branch basis, add whomever you're working for in a directory under ~/Developer
+[includeIf "gitdir:~/Developer"]
+    path = ~/Developer/.gitconfig
+[includeIf "gitdir:~/Developer/personal"]
+    path = ~/Developer/personal/.gitconfig
+[includeIf "gitdir:~/Developer/techtonica"]
+    path = ~/Developer/techtonica/.gitconfig

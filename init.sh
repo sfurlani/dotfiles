@@ -68,6 +68,15 @@ if [ ! -d "$HOME/.nvm" ]; then
   mkdir ~/.nvm
 fi
 
+# zsh config files
+if [ ! -d "$HOME/.zsh" ]; then
+  mkdir ~/.zsh
+fi
+
+# move theme files over
+cat $(pwd)/zsh_themes/ps1.zsh-theme > $HOME/.zsh/ps1.zsh-theme
+cat $(pwd)/zsh_themes/powerlevel9k.zsh-theme > $HOME/.zsh/powerlevel9k.zsh-theme
+
 if [ ! -f "$HOME/.nvm/nvm-exec" ]; then
 	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 fi
