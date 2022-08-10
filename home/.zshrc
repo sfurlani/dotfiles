@@ -88,6 +88,10 @@ HIST_STAMPS="yyyy-mm-dd"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git command-not-found history docker common-aliases emoji osx xcode vi-mode vim-interaction zsh-navigation-tools zsh-syntax-highlighting jsontools)
 # node and npm plugins are looong
+# add k
+# git clone https://github.com/supercrabtree/k $ZSH_CUSTOM/plugins/k
+plugins+=(k)
+
 
 # Check if using Darwin
 if [[ $(uname) = 'Darwin'  ]]; then
@@ -212,3 +216,5 @@ eval "$(pyenv init -)"
 # NodENV
 export PATH="$HOME/.nodenv/shims:$PATH"
 eval "$(nodenv init -)"
+
+# Hey, are you adding something? put it in ~/.zprofile so this doesnt have to reload all the plugins
