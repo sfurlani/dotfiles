@@ -127,6 +127,8 @@ fi
 
 # oh-my-zsh
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
+	sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 	echo "no zsh folder, cloning oh-my-zsh"
 	git clone https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
 
@@ -151,3 +153,9 @@ fi
 # symlink
 sh symlink.sh
 
+# Creating Screenshot Directory
+screenshot_dir="$HOME/Pictures/Screenshots"
+if [ ! -d "$HOME/.fzf" ]; then
+	mkdir "$screenshot_dir"
+fi
+defaults read com.apple.screencapture location "$screenshot_dir"

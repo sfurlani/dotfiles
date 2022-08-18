@@ -37,3 +37,11 @@
     path = ~/Developer/personal/.gitconfig
 [includeIf "gitdir:~/Developer/techtonica"]
     path = ~/Developer/techtonica/.gitconfig
+
+# # Inside the sub-directory, put something like this
+# [user]
+# 	name = Stephen Furlani
+# 	email = sfurlani@surveymonkey.com
+# # Detailing how to link the repo instead of what's there
+# [url "git@surveymonkey:SurveyMonkey-Mobile/"]
+#     insteadOf = git@github.com:SurveyMonkey-Mobile/
