@@ -29,6 +29,10 @@ fi
 #
 #   You'll need to install these separately after installing the dotfiles
 
+# Colored Terminal output
+export CLICOLOR=1
+export LSCOLORS=Gxfxcxdxbxegedabagacad
+
 # Cocoapods requires UTF-8
 export LANG=en_US.UTF-8
 

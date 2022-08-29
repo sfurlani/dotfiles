@@ -1,7 +1,4 @@
 # Basic Theme
-# Colored Terminal output
-export CLICOLOR=1
-export LSCOLORS=Gxfxcxdxbxegedabagacad
 
 # Autoload zsh add-zsh-hook and vcs_info functions (-U autoload w/o substition, -z use zsh style)
 autoload -Uz vcs_info
