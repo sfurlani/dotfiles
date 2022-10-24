@@ -1,1 +1,3 @@
-/Users/stephenfurlani/.gitignore_global
+*~
+.DS_Store
+package-lock.json

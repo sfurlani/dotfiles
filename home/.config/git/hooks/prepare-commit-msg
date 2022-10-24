@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# cp to ~/.config/git/hooks/prepare-commit-msg
+# add to global git config via: `$ git config --global core.hooksPath ~/.config/git/hooks/prepare-commit-msg`
+
+# Execute local githooks
+LOCAL="./.git/hooks/prepare-commit-msg"
+if [ -f "$LOCAL" ]; then
+    command sh "$LOCAL"
+fi
+
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+BRANCH_NAME="${BRANCH_NAME##*/}"
+
+if [[ "$2" == "message" || "$2" == "template" ]] && [[ "$BRANCH_NAME" == MOBILE-* ]]; then
+  sed -i.bak -e "1s/^/[$BRANCH_NAME] /" $1
+fi
+

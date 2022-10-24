@@ -72,6 +72,15 @@ if [ ! -d "$HOME/.nvm" ]; then
   mkdir ~/.nvm
 fi
 
+# zsh config files
+if [ ! -d "$HOME/.zsh" ]; then
+  mkdir ~/.zsh
+fi
+
+# move theme files over
+cat $(pwd)/zsh_themes/ps1.zsh-theme > $HOME/.zsh/ps1.zsh-theme
+cat $(pwd)/zsh_themes/powerlevel9k.zsh-theme > $HOME/.zsh/powerlevel9k.zsh-theme
+
 if [ ! -f "$HOME/.nvm/nvm-exec" ]; then
 	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 fi
@@ -122,6 +131,8 @@ fi
 
 # oh-my-zsh
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
+	sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 	echo "no zsh folder, cloning oh-my-zsh"
 	git clone https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
 
@@ -146,3 +157,9 @@ fi
 # symlink
 sh symlink.sh
 
+# Creating Screenshot Directory
+screenshot_dir="$HOME/Pictures/Screenshots"
+if [ ! -d "$HOME/.fzf" ]; then
+	mkdir "$screenshot_dir"
+fi
+defaults read com.apple.screencapture location "$screenshot_dir"

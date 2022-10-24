@@ -1,1 +1,0 @@
-/Users/stephenfurlani/.config/nvim/init.vim
