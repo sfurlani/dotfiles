@@ -1,3 +1,6 @@
+# Fix GPG
+export GPG_TTY=$(tty)
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -5,188 +8,219 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-
-# Debugging why it takes so long?
-local DEBUG_ZSH=0
-
-# DEBUGGING ZSHRC
-if test $DEBUG_ZSH -gt 0; then
-    echo "TESTING ZSHRC STARTUPS"
-    zmodload zsh/zprof
-fi
-
-# -------------------------------------------------------------------
-# Oh-My-ZSH Customization
-# -------------------------------------------------------------------
-# Custom Plugins:
-#   zsh-autosuggestions
-#   zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md
-# Custom Themes
-#   Powerlevel9k https://github.com/Powerlevel9k/powerlevel9k
-#   Powerlevel10k https://github.com/romkatv/powerlevel10k ??
-# Custom Fonts
-#   Nerd Fonts https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts
-#
-#   You'll need to install these separately after installing the dotfiles
-
-# Colored Terminal output
-export CLICOLOR=1
-export LSCOLORS=Gxfxcxdxbxegedabagacad
-
-# Cocoapods requires UTF-8
-export LANG=en_US.UTF-8
-
-# Only re-fresh the auto-completion file if old
-autoload -Uz compinit
-if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
-  compinit
-else
-  compinit -C
-fi
-
-# Autoload zsh add-zsh-hook and vcs_info functions (-U autoload w/o substition, -z use zsh style)
-autoload -Uz add-zsh-hook colors && colors
-
-# User configuration
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-
-# Local Environment Path
-export PATH="$HOME/.local/bin:$PATH"
-
-# Fastlane Configuration
-export PATH="$HOME/.fastlane/bin:$PATH"
-alias bef="bundle exec fastlane"
-export FASTLANE_SKIP_UPDATE_CHECK=1
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+export ZSH="$HOME/.oh-my-zsh"
 
-# Sourceable zsh files
-if [ ! -d "$HOME/.zsh" ]; then
-  mkdir ~/.zsh
-fi
+# Add Hooks
+autoload -Uz add-zsh-hook colors && colors
 
+# DEfault Editor (NeoVim)
+# if (( $+commands[nvim] )) then    
+#     export EDITOR='nvim'
+#     alias vi="nvim"
+#     alias vim="nvim"
+# else
+    export EDITOR='vim'
+    alias vi="vim"
+    alias vim="nocorrect vim"
+# fi
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # Source your theme, or default to a simple one
 if [ -f "$HOME/.p10k.zsh" ]; then
     # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
     ZSH_THEME="powerlevel10k/powerlevel10k"
     source "$HOME/.p10k.zsh"
-else
-    echo "Can't find zsh theme: $HOME/.p10k.zsh - defaulting to PS1"
-    source "$HOME/.zsh/ps1.zsh"
+elif [ -f "$HOME/.ps1.zsh" ]; then
+    # echo "Can't find zsh theme: $HOME/.p10k.zsh - defaulting to PS1"
+    source "$HOME/.ps1.zsh"
+else 
+    echo "Can't find a theme to load - defaulting"
+    ZSH_THEME="robbyrussell"
 fi
 
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-# Removes the User@ from prompt
-DEFAULT_USER=`whoami`
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment one of the following lines to change the auto-update behavior
+zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-export UPDATE_ZSH_DAYS=5
+# zstyle ':omz:update' frequency 13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Colored Terminal output
+# export CLICOLOR=1
+# export LSCOLORS=Gxfxcxdxbxhghdabagacad
+export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=37;46:cd=37;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
 
 # Uncomment the following line to disable auto-setting terminal title.
-DISABLE_AUTO_TITLE="true"
+# DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="yyyy-mm-dd"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Zsh Completions
+# if type brew &>/dev/null; then
+#   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+#   autoload -Uz compinit
+#   # Only re-fresh the auto-completion file if old
+#   if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
+#     compinit
+#   else
+#     compinit -C
+#   fi
+# fi
+
+# Delete brew's objectively worse git completion
+# https://stackoverflow.com/a/77774933
+# remove_conflicting_git_completions() {
+#     local git_completion_bash="$HOMEBREW_PREFIX/share/zsh/site-functions/git-completion.bash"
+#     local git_completion_zsh="$HOMEBREW_PREFIX/share/zsh/site-functions/_git"
+
+#     [ -e "$git_completion_bash" ] && rm -f "$git_completion_bash"
+#     [ -e "$git_completion_zsh" ] && rm -f "$git_completion_zsh"
+# }
+
+# # This needs to run every time since brew sometimes brings those files back
+# remove_conflicting_git_completions
+
+# Add Homebrew's site functions to fpath (minus git, because that causes conflicts)
+# This will give you autocomplete for _other_ things you installed
+# from brew (like `just`, or `exa`, or `k6`)
+fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
+
+# zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+fpath=(~/.zsh $fpath)
+
+autoload -Uz compinit && compinit
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git command-not-found history docker common-aliases emoji osx xcode vi-mode vim-interaction zsh-navigation-tools zsh-syntax-highlighting jsontools k evalcache virtualenv)
-# node, nvm, nodenv, rbenv, pyenv are the one that take forever
+plugins=(git macos pyenv rbenv xcode fzf vi-mode vim-interaction common-aliases command-not-found zsh-navigation-tools jsontools zsh-syntax-highlighting)
+# git command-not-found history docker common-aliases emoji osx xcode vi-mode vim-interaction zsh-navigation-tools jsontools  zsh-syntax-highlighting 
 
-# EvalCache (prevents env from taking so long)
-export PATH="$HOME/.rbenv/bin:$PATH"
-export PATH="$HOME/.pyenv/bin:$PATH"
-export PATH="$HOME/.nodenv/bin:$PATH"
-
-# Check if using Darwin
-if [[ $(uname) = 'Darwin'  ]]; then
-    IS_MAC=1
-fi
-
-# Default Editor
-if (( $+commands[nvim] )) then    
-    export EDITOR='nvim'
-    alias vi="nvim"
-    alias vim="nvim"
-else
-    export EDITOR='vim'
-    alias vim="nocorrect vim"
-fi
-
-# ZSH Source
 source $ZSH/oh-my-zsh.sh
 
-# Brew
-alias brew_update_all="brew update && brew upgrade `brew outdated` --all"
+# User configuration
 
-# -------------------------------------------------------------------
-# Aliases
-# -------------------------------------------------------------------
+# export MANPATH="/usr/local/man:$MANPATH"
 
-# Git
-alias git_pull_subdirectories='find . -type d -name .git -exec sh -c "cd \"{}\"/../ && pwd && git pull" \;'
-alias git_push_subdirectories='find . -type d -name .git -exec sh -c "cd \"{}\"/../ && pwd && git push origin master" \;'
-alias glsub="git_pull_subdirectories"
-alias gpsub="git_push_subdirectories"
-alias gptag="git push; git push --tags"
-alias gitclean="git rm -r --cached .;ga ."
-alias git='nocorrect git'
+# You may need to manually set your language environment
+# Cocoapods requires UTF-8
+export LANG=en_US.UTF-8
 
-# General
-alias c='clear'
-alias cd..="cd .."
-alias l="ls -AFho"
-alias ll="ls -AFho"
-alias kk="k -Ah"
-alias conda-which="conda-env list"
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
 
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
 
-# -------------------------------------------------------------------
-# Functions
-# -------------------------------------------------------------------
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
 
-# Gitlogger
-# Add current folder to ~/.gitlogger with name specified as argument 1
-# For use with gitlogger.sh
-function glog () {
-    (echo "$1:`pwd`";grep -v "`pwd`$" ~/.gitlogger) | sort > ~/.gitlogger.tmp
-    mv ~/.gitlogger.tmp ~/.gitlogger
+# alias git="nocorrect git" 
+
+if type gls &>/dev/null; then
+  alias gls="nocorrect gls"
+  alias l="gls -AFh --color --group-directories-first"
+  alias ll="gls -AFho --color --group-directories-first"
+else
+  alias l="ls -AFh"
+  alias ll="ls -AFho"
+fi
+
+export DEVELOPER=$HOME/Developer
+
+path+=$HOME/bin
+path+=$HOME/scripts
+path+=$DEVELOPER/bin
+path+=$DEVELOPER/scripts
+
+path+=/opt/homebrew/bin
+
+# Environment
+
+path+="$HOME/.fastlane/bin"
+alias bef="bundle exec fastlane"
+export FASTLANE_SKIP_UPDATE_CHECK=1
+
+alias ber="bundle exec rake"
+
+## Load rbenv into shell
+path+=$HOME/.rbenv/bin
+eval "$(rbenv init -)"
+
+## Load pyenv into shell
+export PYENV_ROOT=$HOME/.pyenv
+path+=$PYENV_ROOT/bin
+eval "$(pyenv init --path)"
+
+## Auto-login SSH Agent
+#### Life360 ####
+
+SSH_ENV=$HOME/.ssh/environment
+
+function start_ssh_agent {
+        ssh-agent | sed 's/^echo/#echo/' > ${SSH_ENV}
+        chmod 0600 ${SSH_ENV}
+        . ${SSH_ENV} > /dev/null
+        ssh-add
+        ssh-add ~/.ssh/id_github360
 }
 
-# -------------------------------------------------------------------
-# Sensitive Functions and Aliases
-# -------------------------------------------------------------------
-if [ -f ~/.zshrc_pushover  ]; then
-    source ~/.zshrc_pushover
+if [ -f "${SSH_ENV}" ]; then
+        . ${SSH_ENV} > /dev/null
+        ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+        start_ssh_agent
+}
+else
+        start_ssh_agent
 fi
-if [ -f ~/.zshrc_tokens  ]; then
-    source ~/.zshrc_tokens
-fi
-
-# -------------------------------------------------------------------
-# Plugins (Moved to Oh-My-Zsh)
-# -------------------------------------------------------------------
-
-
-# -------------------------------------------------------------------
-# Key Bindings (like-bash)
-# -------------------------------------------------------------------
-
-# bindkey "^?" backward-delete-char
-# bindkey "^W" backward-kill-word 
-# bindkey "^H" backward-delete-char      # Control-h also deletes the previous char
-# bindkey "^U" backward-kill-line  
 
 # -------------------------------------------------------------------
 # Fix issues with Bluetooth Sound on Mac OS X
@@ -195,48 +229,10 @@ fi
 
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" 50
 
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
+
 # -------------------------------------------------------------------
-# Environments (see plugin evalcache)
+# Fix issue with Xcode printing stupid errors during testing on simulator
 # -------------------------------------------------------------------
 
-# added by Miniconda3 installer
-export PATH="$HOME/Developer/miniconda3/bin:$PATH"
-
-# NVM takes FOREVER to Load
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-# Imagemagick
-export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
-
-# Flutter
-export PATH="$HOME/Developer/flutter/bin:$PATH"
-
-# Ruby Install Path (From Brew Install Ruby) (for Fastlane)
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
-
-# rbENV
-export PATH="/usr/local/opt/ruby@2.7/bin:$PATH"
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
-# eval "$(rbenv init -)"
-_evalcache rbenv init -
-
-# PyENV
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/shims:$PATH"
-# eval "$(pyenv init -)"
-_evalcache pyenv init -
-
-# NodENV
-export PATH="$HOME/.nodenv/shims:$PATH"
-# eval "$(nodenv init -)"
-_evalcache nodenv init -
-
-# JavaSDK
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-11.0.15.1.jdk/Contents/Home"
-
-# DEBUGGING ZSHRC
-if test $DEBUG_ZSH -gt 0; then
-    zprof # bottom of .zshrc
-fi
+xcrun simctl spawn booted log config --mode "level:off"  --subsystem com.apple.CoreTelephony
